@@ -141,7 +141,7 @@ def create_data_file(pos, lang, synsets, variations, relations, eng_synsets, spa
             text_chunks.append(text)
 
             for variation in variations[synset_name]:
-                text = variation
+                text = variation.strip(" _")
                 index += utf8len(text)
                 text_chunks.append(text)
 
@@ -214,19 +214,22 @@ def create_data_file(pos, lang, synsets, variations, relations, eng_synsets, spa
             text_chunks.append(text)
 
         # gloss
-        if (gloss == "NULL" or gloss.strip() == "") and eng_offset in spa_glosses:
+        unstripped = gloss
+        if (unstripped.strip() == ""):
+            gloss = "None"
+        if (gloss == "NULL" or unstripped.strip() == "") and eng_offset in spa_glosses:
             try:
-                text = "| " + spa_glosses[eng_offset] + "\n"
+                text = "0 | " + spa_glosses[eng_offset] + "  \n"
                 index += utf8len(text)
                 text_chunks.append(text)
             except UnicodeEncodeError as e:
-                text = "| " + gloss + "\n"
+                text = "0 | " + gloss + "  \n"
                 index += utf8len(text)
                 text_chunks.append(text)
                 print(eng_offset)
                 print(e)
         else:
-            text = "| " + gloss + "\n"
+            text = "0 | " + gloss + "  \n"
             index += utf8len(text)
             text_chunks.append(text)
 
