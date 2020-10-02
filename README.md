@@ -6,7 +6,7 @@ This script transforms the [Multilingual Central Repository](http://adimen.si.eh
 
 This lingeringsocket fork includes the following changes:
 
-* Transformation tweaks to make the result compatible with [https://github.com/extjwnl/extjwnl](extjwnl)
+* Transformation tweaks to make the result compatible with [extjwnl](https://github.com/extjwnl/extjwnl)
 * Regenerated data based on the 2016 release of MCR 3.0 (which now includes Portuguese as well)
 
 ## Transforming the MCR 3.0 corpus
