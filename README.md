@@ -2,9 +2,16 @@
 
 This script transforms the [Multilingual Central Repository](http://adimen.si.ehu.es/web/MCR/) (MCR) 3.0 database so that it can be loaded using the [NLTK](http://www.nltk.org/) WordNet reader.
 
+## Changes from Upstream
+
+This lingeringsocket fork includes the following changes:
+
+* Transformation tweaks to make the result compatible with [https://github.com/extjwnl/extjwnl](extjwnl)
+* Regenerated data based on the 2016 release of MCR 3.0 (which now includes Portuguese as well)
+
 ## Transforming the MCR 3.0 corpus
 
-The result of the transformation is in each of the compressed files here, correspoding to the available languages in MCR, so you can directly download and use them. If you want to generate them yourself, do the following.
+The result of the transformation is in each of the compressed files here, corresponding to the available languages in MCR, so you can directly download and use them. If you want to generate them yourself, do the following.
 
 Download the needed files:
 
