@@ -109,7 +109,7 @@ def utf8len(s):
 unknown_count = 0
 
 
-def create_data_file(pos, lang, synsets, variations, relations, eng_synsets, spa_glosses, synset_map):
+def create_data_file(pos, lang, synsets, variations, relations, eng_synsets, spa_glosses, synset_map, ili_map):
     global unknown_count
 
     text_chunks = []
@@ -117,6 +117,7 @@ def create_data_file(pos, lang, synsets, variations, relations, eng_synsets, spa
 
     text = get_file_header_info(lang, pos)
     index = utf8len(text)
+    line = 0
     text_chunks.append(text)
 
     synsets_set = {pos: set(synsets[pos][0]) for pos in synsets}
@@ -126,6 +127,11 @@ def create_data_file(pos, lang, synsets, variations, relations, eng_synsets, spa
         eng_offset = synset + pos
 
         text = synset
+
+        # ili_map[pos + "{0:08d}".format(index) + " " + pos] = synset
+        ili_map[pos + "#" + "{0:06d}".format(line) + " " + pos] = synset
+        line += 1
+
         synset_map["@" + text + pos] = index
         index += utf8len(text)
         text_chunks.append("@" + text + pos)
@@ -260,6 +266,12 @@ def write_index_file(root_result, pos, lang, variations_map, synset_map):
                 _file.write(" {0:08d}".format(synset_map["@" + offset + pos]))
             _file.write("\n")
 
+def write_ili_file(root_result, ili_map):
+    filename = root_result + "/ili.ssv"
+    print(filename)
+    with io.open(filename, mode="w", encoding="utf-8") as _file:
+        for key, value in ili_map.items():
+            _file.write(key + value + "\n")
 
 def load_synsets(root_eng, pos, eng_synsets, eng_glosses):
     with io.open(root_eng + "/data." + POS_NAMES[pos], encoding="utf-8") as _file:
@@ -365,17 +377,19 @@ def transform(root_mcr, root_eng, lang, root_result, foreign_glosses_path=None):
 
     print("Creating data files...")
     synset_map = {}
+    ili_map = {}
 
     data = {}
     variations = {}
 
     for pos in POS_NAMES:
         data[pos], variations[pos] = create_data_file(pos, lang, synsets, variants, relations, eng_synsets,
-                                                      foreign_glosses, synset_map)
+                                                      foreign_glosses, synset_map, ili_map)
 
     for pos in POS_NAMES:
         write_data_file(root_result, pos, data[pos], synset_map)
         write_index_file(root_result, pos, lang, variations[pos], synset_map)
+    write_ili_file(root_result, ili_map)
 
 
 def export_glosses(root_eng, result_path):
