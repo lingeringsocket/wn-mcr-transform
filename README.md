@@ -8,7 +8,7 @@ This lingeringsocket fork includes the following changes:
 
 * Transformation tweaks to make the result compatible with [extjwnl](https://github.com/extjwnl/extjwnl)
 * Regenerated data based on the 2016 release of MCR 3.0 (which now includes Portuguese as well)
-* Added a mapping file from synset line numbers to Princeton Wordnet 3.0 offsets
+* Added a mapping file (`ili.ssv`) from synset 0-based line numbers to Princeton Wordnet 3.0 offsets
 
 ## Transforming the MCR 3.0 corpus
 
