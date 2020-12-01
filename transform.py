@@ -128,7 +128,6 @@ def create_data_file(pos, lang, synsets, variations, relations, eng_synsets, spa
 
         text = synset
 
-        # ili_map[pos + "{0:08d}".format(index) + " " + pos] = synset
         ili_map[pos + "#" + "{0:06d}".format(line) + " " + pos] = synset
         line += 1
 
