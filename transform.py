@@ -128,7 +128,7 @@ def create_data_file(pos, lang, synsets, variations, relations, eng_synsets, spa
 
         text = synset
 
-        ili_map[pos + "#" + "{0:06d}".format(line) + " " + pos] = synset
+        ili_map[pos + "#" + "{0:06d}".format(line) + "," + pos] = synset
         line += 1
 
         synset_map["@" + text + pos] = index
@@ -266,7 +266,7 @@ def write_index_file(root_result, pos, lang, variations_map, synset_map):
             _file.write("\n")
 
 def write_ili_file(root_result, ili_map):
-    filename = root_result + "/ili.ssv"
+    filename = root_result + "/ili.csv"
     print(filename)
     with io.open(filename, mode="w", encoding="utf-8") as _file:
         for key, value in ili_map.items():
